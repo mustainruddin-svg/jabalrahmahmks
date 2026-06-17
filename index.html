@@ -570,9 +570,23 @@ tbody tr:hover td{background:var(--gray50)}
       <div class="rekap-fields">
         <div class="rekap-field"><label>Dari Tanggal *</label><input type="date" id="rk-dari" onchange="updateHeroPeriod()"></div>
         <div class="rekap-field"><label>Sampai Tanggal *</label><input type="date" id="rk-sampai" onchange="updateHeroPeriod()"></div>
-        <div class="rekap-field"><label>Saldo Awal (Total)</label><input type="number" id="rk-saldo-awal" placeholder="0"></div>
-        <div class="rekap-field"><label>Saldo Kas (Tunai)</label><input type="number" id="rk-saldo-kas" placeholder="0"></div>
-        <div class="rekap-field"><label>Saldo Bank</label><input type="number" id="rk-saldo-bank" placeholder="0"></div>
+        <div class="rekap-field" style="grid-column:1/-1">
+          <label>Saldo Awal (dari sistem)</label>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:4px">
+            <div style="background:var(--gray50);border:1px solid var(--gray200);border-radius:6px;padding:8px 12px">
+              <div style="font-size:10px;font-weight:700;color:var(--gray400);text-transform:uppercase;margin-bottom:2px">Total</div>
+              <div style="font-size:13px;font-weight:700;color:var(--gray900)" id="rk-info-awal">Memuat...</div>
+            </div>
+            <div style="background:var(--goldp);border:1px solid #e8d89c;border-radius:6px;padding:8px 12px">
+              <div style="font-size:10px;font-weight:700;color:var(--goldd);text-transform:uppercase;margin-bottom:2px">Kas Tunai</div>
+              <div style="font-size:13px;font-weight:700;color:var(--goldd)" id="rk-info-kas">Memuat...</div>
+            </div>
+            <div style="background:#EBF4FB;border:1px solid #b5d4f4;border-radius:6px;padding:8px 12px">
+              <div style="font-size:10px;font-weight:700;color:#1A6DA8;text-transform:uppercase;margin-bottom:2px">Bank BSI</div>
+              <div style="font-size:13px;font-weight:700;color:#1A6DA8" id="rk-info-bank">Memuat...</div>
+            </div>
+          </div>
+        </div>
         <div class="rekap-field"><label>Khatib Jum'at</label><input type="text" id="rk-khatib" placeholder="Nama khatib"></div>
       </div>
       <div class="cfg-grid">
@@ -811,14 +825,21 @@ async function fetchConfig() {
     if(result.status!=='ok'||!result.data) return;
     const d = result.data;
 
-    const P = v => { const n=parseFloat(String(v).replace(/[^0-9.]/g,'')); return(!isNaN(n)&&n>0&&n<1e10)?n:null; };
+    const P = v => { const n=parseFloat(String(v).replace(/[^0-9.]/g,'')); return(!isNaN(n)&&n>=0&&n<1e10)?n:null; };
     const sa=P(d.saldo_awal), sk=P(d.saldo_kas), sb=P(d.saldo_bank);
 
-    if(sa!==null){
-      CFG.saldo_awal=sa; CFG.saldo_kas=sk??0; CFG.saldo_bank=sb??sa;
-      CFG.loaded=true;
-      setField('rk-saldo-awal',sa); setField('rk-saldo-kas',CFG.saldo_kas); setField('rk-saldo-bank',CFG.saldo_bank);
-    }
+    // Set saldo — pakai 0 kalau kosong, tetap loaded=true agar tidak stuck "Memuat..."
+    CFG.saldo_awal = sa ?? 0;
+    CFG.saldo_kas  = sk ?? 0;
+    CFG.saldo_bank = sb ?? 0;
+    CFG.loaded = true;
+    // Update display saldo di form Rekap
+    const rkInfoAwal=document.getElementById('rk-info-awal');
+    const rkInfoKas=document.getElementById('rk-info-kas');
+    const rkInfoBank=document.getElementById('rk-info-bank');
+    if(rkInfoAwal) rkInfoAwal.textContent=fmt(CFG.saldo_awal);
+    if(rkInfoKas)  rkInfoKas.textContent=fmt(CFG.saldo_kas);
+    if(rkInfoBank) rkInfoBank.textContent=fmt(CFG.saldo_bank);
     ['ketua','jabatan_ketua','bendahara','jabatan_bendahara','khatib','imam','muadzin',
      'bank_rekening','no_rekening','an_rekening','nama_masjid'].forEach(k=>{
       if(d[k]!==undefined&&d[k]!=='') CFG[k]=d[k];
@@ -835,7 +856,11 @@ async function fetchConfig() {
     if(d.no_rekening)   document.getElementById('d-rekening').textContent=d.no_rekening;
     if(d.an_rekening)   document.getElementById('d-an').textContent='a.n. '+d.an_rekening;
     renderSummary(); renderJumatan();
-  } catch(e){ console.warn('fetchConfig error:',e); }
+  } catch(e){
+    console.warn('fetchConfig error:',e);
+    // Fallback: tetap tampilkan saldo 0 agar tidak stuck "Memuat..."
+    if(!CFG.loaded){ CFG.loaded=true; renderSummary(); }
+  }
 }
 function setField(id,v){ const el=document.getElementById(id); if(el&&v!==undefined&&String(v).trim()!=='') el.value=v; }
 
@@ -1149,13 +1174,10 @@ async function simpanPengaturan(){
     nama_bendahara:document.getElementById('rk-bendahara').value.trim(),
     jabatan_bendahara:document.getElementById('rk-jabatan-bendahara').value.trim(),
     khatib:document.getElementById('rk-khatib').value.trim(),
-    imam:document.getElementById('rk-imam').value.trim(),
-    saldo_awal:document.getElementById('rk-saldo-awal').value,
-    saldo_kas:document.getElementById('rk-saldo-kas').value,
-    saldo_bank:document.getElementById('rk-saldo-bank').value
+    imam:document.getElementById('rk-imam').value.trim()
   };
-  if(!cfg.nama_ketua||!cfg.saldo_awal){
-    document.getElementById('alert-cfg-error-msg').textContent='Nama ketua dan saldo awal wajib diisi.';
+  if(!cfg.nama_ketua){
+    document.getElementById('alert-cfg-error-msg').textContent='Nama ketua wajib diisi.';
     aErr.classList.add('show'); return;
   }
   const orig=btn.innerHTML; btn.innerHTML='⏳ Menyimpan...'; btn.disabled=true;
@@ -1165,10 +1187,7 @@ async function simpanPengaturan(){
     let result={status:'ok'};
     try{const s=text.indexOf('{'),e=text.lastIndexOf('}')+1;if(s>=0)result=JSON.parse(text.substring(s,e));}catch{}
     if(result.status==='ok'||res.ok){
-      CFG.saldo_awal=parseFloat(cfg.saldo_awal)||CFG.saldo_awal;
-      CFG.saldo_kas=parseFloat(cfg.saldo_kas)||CFG.saldo_kas;
-      CFG.saldo_bank=parseFloat(cfg.saldo_bank)||CFG.saldo_bank;
-      CFG.loaded=true; renderSummary();
+      renderSummary();
       aOk.classList.add('show'); setTimeout(()=>aOk.classList.remove('show'),4000);
     } else throw new Error(result.message||'Error');
   }catch(e){
@@ -1197,9 +1216,9 @@ function buildRekapPreview(){
   const bankIn=pIn.filter(d=>(d.metode||'').toUpperCase()==='BANK').reduce((s,d)=>s+d.jumlah,0);
   const bankOut=pOut.filter(d=>(d.metode||'').toUpperCase()==='BANK').reduce((s,d)=>s+d.jumlah,0);
 
-  const saldoKasAwal=parseFloat(document.getElementById('rk-saldo-kas').value)||CFG.saldo_kas||0;
-  const saldoBankAwal=parseFloat(document.getElementById('rk-saldo-bank').value)||CFG.saldo_bank||0;
-  const saldoAwal=parseFloat(document.getElementById('rk-saldo-awal').value)||CFG.saldo_awal||0;
+  const saldoKasAwal=CFG.saldo_kas||0;
+  const saldoBankAwal=CFG.saldo_bank||0;
+  const saldoAwal=CFG.saldo_awal||0;
 
   const sKas=saldoKasAwal+kasIn-kasOut;
   const sBank=saldoBankAwal+bankIn-bankOut;
