@@ -816,50 +816,63 @@ async function fetchData() {
 
 /* ── FETCH CONFIG (dari GAS) ─────────────────────────────── */
 async function fetchConfig() {
+  // Baca langsung dari sheet Pengaturan via gviz/tq — tidak bergantung GAS
   try {
-    const res = await fetch(GAS_URL+'?action=get_config&_='+Date.now());
+    const url = URL_CFG + Date.now();
+    const res  = await fetch(url);
     const text = await res.text();
     const s=text.indexOf('{'), e=text.lastIndexOf('}')+1;
-    if(s<0) return;
-    const result = JSON.parse(text.substring(s,e));
-    if(result.status!=='ok'||!result.data) return;
-    const d = result.data;
+    if(s<0) throw new Error('Format error');
+    const json = JSON.parse(text.substring(s,e));
+    const rows = json.table?.rows;
+    if(!rows) throw new Error('Tidak ada data');
 
-    const P = v => { const n=parseFloat(String(v).replace(/[^0-9.]/g,'')); return(!isNaN(n)&&n>=0&&n<1e10)?n:null; };
-    const sa=P(d.saldo_awal), sk=P(d.saldo_kas), sb=P(d.saldo_bank);
-
-    // Set saldo — pakai 0 kalau kosong, tetap loaded=true agar tidak stuck "Memuat..."
-    CFG.saldo_awal = sa ?? 0;
-    CFG.saldo_kas  = sk ?? 0;
-    CFG.saldo_bank = sb ?? 0;
-    CFG.loaded = true;
-    // Update display saldo di form Rekap
-    const rkInfoAwal=document.getElementById('rk-info-awal');
-    const rkInfoKas=document.getElementById('rk-info-kas');
-    const rkInfoBank=document.getElementById('rk-info-bank');
-    if(rkInfoAwal) rkInfoAwal.textContent=fmt(CFG.saldo_awal);
-    if(rkInfoKas)  rkInfoKas.textContent=fmt(CFG.saldo_kas);
-    if(rkInfoBank) rkInfoBank.textContent=fmt(CFG.saldo_bank);
-    ['ketua','jabatan_ketua','bendahara','jabatan_bendahara','khatib','imam','muadzin',
-     'bank_rekening','no_rekening','an_rekening','nama_masjid'].forEach(k=>{
-      if(d[k]!==undefined&&d[k]!=='') CFG[k]=d[k];
+    // Baca baris key→value dari kolom A (key) dan B (value)
+    const d = {};
+    rows.forEach(row => {
+      const key = row.c?.[0]?.v;
+      const val = row.c?.[1]?.v;
+      if(key && !String(key).startsWith('==')) d[String(key).trim()] = val;
     });
-    setField('rk-ketua',d.nama_ketua||d.ketua||'');
-    setField('rk-jabatan-ketua',d.jabatan_ketua||'');
-    setField('rk-bendahara',d.nama_bendahara||d.bendahara||'');
-    setField('rk-jabatan-bendahara',d.jabatan_bendahara||'');
-    setField('rk-khatib',d.khatib||'');
-    const imam=d.imam||'', mu=d.muadzin||'';
-    setField('rk-imam', mu ? `${imam} / ${mu}` : imam);
-    if(d.nama_masjid) document.getElementById('hero-masjid').textContent=d.nama_masjid;
-    if(d.bank_rekening) document.getElementById('d-bank-name').textContent=d.bank_rekening;
-    if(d.no_rekening)   document.getElementById('d-rekening').textContent=d.no_rekening;
-    if(d.an_rekening)   document.getElementById('d-an').textContent='a.n. '+d.an_rekening;
+
+    const P = v => {
+      if(v===null||v===undefined||v==='') return null;
+      const n = parseFloat(String(v).replace(/[^0-9.]/g,''));
+      return (!isNaN(n) && n>=0 && n<1e10) ? n : null;
+    };
+
+    CFG.saldo_awal = P(d.saldo_awal) ?? 0;
+    CFG.saldo_kas  = P(d.saldo_kas)  ?? 0;
+    CFG.saldo_bank = P(d.saldo_bank) ?? 0;
+    CFG.loaded = true;
+
+    // Isi field teks dari Pengaturan
+    if(d.nama_ketua)        { CFG.ketua=d.nama_ketua; setField('rk-ketua',d.nama_ketua); }
+    if(d.jabatan_ketua)     { CFG.jabatan_ketua=d.jabatan_ketua; setField('rk-jabatan-ketua',d.jabatan_ketua); }
+    if(d.nama_bendahara)    { CFG.bendahara=d.nama_bendahara; setField('rk-bendahara',d.nama_bendahara); }
+    if(d.jabatan_bendahara) { CFG.jabatan_bendahara=d.jabatan_bendahara; setField('rk-jabatan-bendahara',d.jabatan_bendahara); }
+    if(d.khatib)  { CFG.khatib=d.khatib;   setField('rk-khatib',d.khatib); }
+    if(d.imam)    { CFG.imam=d.imam; }
+    if(d.muadzin) { CFG.muadzin=d.muadzin; }
+    const imamVal=d.imam||'', muVal=d.muadzin||'';
+    setField('rk-imam', muVal ? `${imamVal} / ${muVal}` : imamVal);
+    if(d.nama_masjid)    document.getElementById('hero-masjid').textContent=d.nama_masjid;
+    if(d.bank_rekening)  document.getElementById('d-bank-name').textContent=d.bank_rekening;
+    if(d.no_rekening)    document.getElementById('d-rekening').textContent=d.no_rekening;
+    if(d.an_rekening)    document.getElementById('d-an').textContent='a.n. '+d.an_rekening;
+
+    // Update display saldo di form Rekap
+    const el=id=>document.getElementById(id);
+    if(el('rk-info-awal'))  el('rk-info-awal').textContent=fmt(CFG.saldo_awal);
+    if(el('rk-info-kas'))   el('rk-info-kas').textContent=fmt(CFG.saldo_kas);
+    if(el('rk-info-bank'))  el('rk-info-bank').textContent=fmt(CFG.saldo_bank);
+
     renderSummary(); renderJumatan();
-  } catch(e){
-    console.warn('fetchConfig error:',e);
-    // Fallback: tetap tampilkan saldo 0 agar tidak stuck "Memuat..."
-    if(!CFG.loaded){ CFG.loaded=true; renderSummary(); }
+    console.log('✅ Config loaded via gviz — saldo_awal:', CFG.saldo_awal, '| kas:', CFG.saldo_kas, '| bank:', CFG.saldo_bank);
+
+  } catch(e) {
+    console.warn('fetchConfig error:', e.message);
+    if(!CFG.loaded) { CFG.loaded=true; renderSummary(); }
   }
 }
 function setField(id,v){ const el=document.getElementById(id); if(el&&v!==undefined&&String(v).trim()!=='') el.value=v; }
@@ -915,10 +928,13 @@ function dbRender(){
   const pOut=dbData.filter(d=>d.jenis==='Pengeluaran');
   const tIn=pIn.reduce((s,d)=>s+d.jumlah,0);
   const tOut=pOut.reduce((s,d)=>s+d.jumlah,0);
-  const kasIn=pIn.filter(d=>(d.metode||'').toUpperCase()==='TUNAI').reduce((s,d)=>s+d.jumlah,0);
-  const kasOut=pOut.filter(d=>(d.metode||'').toUpperCase()==='TUNAI').reduce((s,d)=>s+d.jumlah,0);
-  const bankIn=pIn.filter(d=>(d.metode||'').toUpperCase()==='BANK').reduce((s,d)=>s+d.jumlah,0);
-  const bankOut=pOut.filter(d=>(d.metode||'').toUpperCase()==='BANK').reduce((s,d)=>s+d.jumlah,0);
+  // Saldo Akhir = selalu dari SEMUA transaksi (allData), bukan dari filter periode
+  const allIn=allData.filter(d=>d.jenis==='Penerimaan');
+  const allOut=allData.filter(d=>d.jenis==='Pengeluaran');
+  const kasIn=allIn.filter(d=>(d.metode||'').toUpperCase()==='TUNAI').reduce((s,d)=>s+d.jumlah,0);
+  const kasOut=allOut.filter(d=>(d.metode||'').toUpperCase()==='TUNAI').reduce((s,d)=>s+d.jumlah,0);
+  const bankIn=allIn.filter(d=>(d.metode||'').toUpperCase()==='BANK').reduce((s,d)=>s+d.jumlah,0);
+  const bankOut=allOut.filter(d=>(d.metode||'').toUpperCase()==='BANK').reduce((s,d)=>s+d.jumlah,0);
   const sKas=CFG.saldo_kas+kasIn-kasOut;
   const sBank=CFG.saldo_bank+bankIn-bankOut;
   const sTotal=sKas+sBank;
@@ -928,6 +944,7 @@ function dbRender(){
   document.getElementById('s-total-in').textContent=fmt(tIn);
   document.getElementById('s-total-out').textContent=fmt(tOut);
   document.getElementById('s-saldo-total').textContent=CFG.loaded?fmt(sTotal):'Memuat...';
+  if(CFG.loaded) document.getElementById('db-sub-saldo').textContent='Kas '+fmts(Math.max(0,sKas))+' + Bank '+fmts(Math.max(0,sBank));
   document.getElementById('s-db-count').textContent=dbData.length+' Item';
   document.getElementById('mc-in').textContent=fmts(tIn);
   document.getElementById('mc-out').textContent=fmts(tOut);
