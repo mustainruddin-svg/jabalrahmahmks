@@ -269,6 +269,69 @@ tbody tr:hover td{background:var(--gray50)}
   .fbar label{display:none}
   .fbar select,.fbar input[type=date]{font-size:12px;flex:1;min-width:90px}
 }
+
+/* ── DASHBOARD BARU ───────────────────────────────────── */
+.db-filter{background:var(--white);border:1px solid var(--gray200);border-radius:var(--r);padding:10px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:14px 0;box-shadow:var(--sh)}
+.db-filter label{font-size:11px;font-weight:600;color:var(--gray600);white-space:nowrap}
+.db-filter input[type=date]{border:1px solid var(--gray200);border-radius:6px;padding:5px 8px;font-size:12px;font-family:var(--ff);background:var(--gray50);color:var(--gray900);outline:none}
+.db-filter input[type=date]:focus{border-color:var(--g)}
+.fpreset{border:1px solid var(--gray200);border-radius:6px;padding:5px 10px;font-size:11px;font-weight:600;font-family:var(--ff);background:var(--gray50);color:var(--gray600);cursor:pointer;transition:var(--t)}
+.fpreset:hover,.fpreset.on{background:var(--g);color:#fff;border-color:var(--g)}
+.period-chip{margin-left:auto;background:var(--gp);border:1px solid #b8dfc7;border-radius:100px;padding:4px 12px;font-size:11px;color:var(--gd);white-space:nowrap;font-weight:600}
+.period-chip i{color:var(--gold);margin-right:4px}
+.db-row1{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+.db-card{background:var(--white);border:1px solid var(--gray200);border-radius:var(--r);padding:14px 16px;box-shadow:var(--sh);position:relative;overflow:hidden}
+.db-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px}
+.dbc-g::before{background:var(--g)}.dbc-r::before{background:var(--red)}.dbc-go::before{background:var(--gold)}.dbc-b::before{background:#1A6DA8}
+.dbc-icon{position:absolute;right:14px;top:14px;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px}
+.dbc-g .dbc-icon{background:var(--gp);color:var(--g)}
+.dbc-r .dbc-icon{background:var(--redp);color:var(--red)}
+.dbc-go .dbc-icon{background:var(--goldp);color:var(--goldd)}
+.dbc-b .dbc-icon{background:#EBF4FB;color:#1A6DA8}
+.dbc-lbl{font-size:10px;font-weight:700;color:var(--gray400);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.dbc-val{font-size:18px;font-weight:700;line-height:1.1;margin-bottom:3px}
+.dbc-g .dbc-val{color:var(--g)}.dbc-r .dbc-val{color:var(--red)}.dbc-go .dbc-val{color:var(--goldd)}.dbc-b .dbc-val{color:#1A6DA8}
+.dbc-sub{font-size:10px;color:var(--gray400)}
+.db-row2{display:grid;grid-template-columns:1fr 1fr 290px;gap:10px;margin-bottom:12px}
+.db-row3{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.db-row4{display:grid;grid-template-columns:1fr 260px;gap:10px;margin-bottom:12px}
+.db-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--gray400);margin-bottom:10px}
+.allok-row2{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--gray100);font-size:12px}
+.allok-row2:last-child{border-bottom:none}
+.allok-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.allok-name2{flex:1;color:var(--gray900)}
+.allok-bwrap{width:80px;height:5px;background:var(--gray100);border-radius:3px;overflow:hidden}
+.allok-bfill{height:100%;border-radius:3px}
+.allok-val2{min-width:44px;text-align:right;font-size:11px;font-weight:600;color:var(--gray600)}
+.real-prog{margin-bottom:8px}
+.real-prog-label{display:flex;justify-content:space-between;font-size:11px;color:var(--gray600);margin-bottom:3px}
+.real-bar-wrap{height:7px;background:var(--gray100);border-radius:4px;overflow:hidden}
+.real-bar{height:100%;border-radius:4px}
+.mini4{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px}
+.mini-c{border-radius:6px;padding:8px 10px;border:1px solid var(--gray200)}
+.mini-c .ml{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px}
+.mini-c .mv{font-size:13px;font-weight:700}
+.mc-g{background:var(--gp);border-color:#b8dfc7}.mc-g .ml{color:var(--gd)}.mc-g .mv{color:var(--g)}
+.mc-go{background:var(--goldp);border-color:#e8d89c}.mc-go .ml{color:var(--goldd)}.mc-go .mv{color:var(--goldd)}
+.mc-gray{background:var(--gray50)}.mc-gray .ml{color:var(--gray400)}.mc-gray .mv{color:var(--gray600)}
+.mc-b{background:#EBF4FB;border-color:#b5d4f4}.mc-b .ml{color:#1A6DA8}.mc-b .mv{color:#1A6DA8}
+.db-trx-filter{display:flex;gap:4px;margin-bottom:10px}
+.db-trx-btn{border:1px solid var(--gray200);border-radius:100px;padding:4px 12px;font-size:11px;font-weight:600;font-family:var(--ff);background:var(--gray50);color:var(--gray600);cursor:pointer;transition:var(--t)}
+.db-trx-btn.on,.db-trx-btn:hover{background:var(--g);color:#fff;border-color:var(--g)}
+.top-item2{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--gray100)}
+.top-item2:last-child{border-bottom:none}
+.top-dot2{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.top-name2{flex:1;font-size:11px;color:var(--gray900);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top-val2{font-size:12px;font-weight:700;white-space:nowrap}
+.db-table{width:100%;border-collapse:collapse;font-size:12px}
+.db-table thead th{font-size:10px;font-weight:700;color:var(--gray400);text-transform:uppercase;letter-spacing:.4px;padding:0 0 8px;text-align:left;border-bottom:2px solid var(--gray100)}
+.db-table thead th:last-child{text-align:right}
+.db-table tbody td{padding:9px 0;border-bottom:1px solid var(--gray100);vertical-align:middle}
+.db-table tbody tr:last-child td{border-bottom:none}
+.db-table tbody tr:hover td{background:var(--gray50)}
+.db-table td:last-child{text-align:right;font-weight:700}
+@media(max-width:900px){.db-row2,.db-row3,.db-row4{grid-template-columns:1fr}}
+@media(max-width:768px){.db-row1{grid-template-columns:1fr 1fr}.db-filter label{display:none}.fpreset{font-size:10px;padding:4px 7px}}
 </style>
 </head>
 <body>
@@ -283,7 +346,7 @@ tbody tr:hover td{background:var(--gray50)}
 <header class="hdr">
   <div class="hdr-inner">
     <div class="hdr-logo">
-      <div class="logo-img"><img src="logodkm.png" alt="Logo" onerror="this.parentElement.innerHTML='<i class=\'fa-solid fa-mosque\' style=\'font-size:22px;color:var(--gold);margin:auto\'></i>'"></div>
+      <div class="logo-img"><img src="logodkm.jpg" alt="Logo" onerror="this.parentElement.innerHTML='<i class=\'fa-solid fa-mosque\' style=\'font-size:22px;color:var(--gold);margin:auto\'></i>'"></div>
       <div class="hdr-title">
         <h1>Masjid Jabal Rahmah</h1>
         <p id="hdr-sub">Laporan Keuangan Digital</p>
@@ -348,49 +411,82 @@ tbody tr:hover td{background:var(--gray50)}
 <!-- ========== DASHBOARD ========== -->
 <div class="page active" id="page-dashboard">
 <div class="wrap">
-  <div class="sg">
-    <div class="sc sg"><div class="sc-label">Total Penerimaan</div><div class="sc-val vg" id="s-total-in">–</div><div class="sc-sub">Seluruh periode</div><i class="fa-solid fa-arrow-trend-up sc-icon"></i></div>
-    <div class="sc sr"><div class="sc-label">Total Pengeluaran</div><div class="sc-val vr" id="s-total-out">–</div><div class="sc-sub">Seluruh periode</div><i class="fa-solid fa-arrow-trend-down sc-icon"></i></div>
-    <div class="sc sgo"><div class="sc-label">Saldo Kas (Tunai)</div><div class="sc-val vgo" id="s-saldo-kas">Memuat...</div><div class="sc-sub">Kas fisik</div><i class="fa-solid fa-money-bill sc-icon"></i></div>
-    <div class="sc sb"><div class="sc-label">Saldo Bank</div><div class="sc-val vb" id="s-saldo-bank">Memuat...</div><div class="sc-sub">Rekening BSI</div><i class="fa-solid fa-building-columns sc-icon"></i></div>
+
+  <!-- FILTER PERIODE -->
+  <div class="db-filter">
+    <label>Filter Periode</label>
+    <input type="date" id="db-dari" onchange="dbFilter()">
+    <span style="color:var(--gray400);font-size:11px">–</span>
+    <input type="date" id="db-sampai" onchange="dbFilter()">
+    <button class="fpreset on" id="fp-tampil" onclick="dbPreset('tampil',this)">Tampilkan</button>
+    <button class="fpreset" id="fp-reset" onclick="dbPreset('reset',this)">Reset</button>
+    <button class="fpreset" id="fp-bulan" onclick="dbPreset('bulan',this)">Bulan Ini</button>
+    <button class="fpreset" id="fp-lalu" onclick="dbPreset('lalu',this)">Bulan Lalu</button>
+    <button class="fpreset" id="fp-semua" onclick="dbPreset('semua',this)">Semua</button>
+    <div class="period-chip"><i class="fa-solid fa-calendar-week"></i><span id="db-period-chip">–</span></div>
   </div>
-  <div class="saldo-box">
-    <div>
-      <div class="lbl">Saldo Total</div>
-      <div class="val" id="s-saldo-total">Memuat...</div>
+
+  <!-- KARTU RINGKASAN -->
+  <div class="db-row1">
+    <div class="db-card dbc-g">
+      <div class="dbc-icon"><i class="fa-solid fa-arrow-down"></i></div>
+      <div class="dbc-lbl">Total Penerimaan</div>
+      <div class="dbc-val" id="s-total-in">–</div>
+      <div class="dbc-sub" id="db-sub-in">Seluruh data</div>
     </div>
-    <div class="subs">
-      <div class="sub-item">Kas Tunai<strong id="sb-kas">–</strong></div>
-      <div class="sub-item">Bank BSI<strong id="sb-bank">–</strong></div>
+    <div class="db-card dbc-r">
+      <div class="dbc-icon"><i class="fa-solid fa-arrow-up"></i></div>
+      <div class="dbc-lbl">Total Pengeluaran</div>
+      <div class="dbc-val" id="s-total-out">–</div>
+      <div class="dbc-sub" id="db-sub-out">Seluruh data</div>
+    </div>
+    <div class="db-card dbc-go">
+      <div class="dbc-icon"><i class="fa-solid fa-coin"></i></div>
+      <div class="dbc-lbl">Saldo Akhir</div>
+      <div class="dbc-val" id="s-saldo-total">Memuat...</div>
+      <div class="dbc-sub" id="db-sub-saldo">Kas + Bank</div>
+    </div>
+    <div class="db-card dbc-b">
+      <div class="dbc-icon"><i class="fa-solid fa-list-ol"></i></div>
+      <div class="dbc-lbl">Total Transaksi</div>
+      <div class="dbc-val" id="s-db-count">–</div>
+      <div class="dbc-sub" id="db-sub-count">Item</div>
     </div>
   </div>
 
-  <div class="grid2">
+  <!-- BARIS 2: Pie + Alokasi + Realisasi -->
+  <div class="db-row2">
     <div class="card">
-      <div class="card-hd"><h3><i class="fa-solid fa-chart-bar"></i> Arus Kas Harian</h3></div>
-      <div class="card-bd"><div class="chart-wrap"><canvas id="mainChart"></canvas></div></div>
-    </div>
-    <div class="card">
-      <div class="card-hd"><h3><i class="fa-solid fa-chart-pie"></i> Komposisi Penerimaan</h3></div>
+      <div class="card-hd"><h3><i class="fa-solid fa-chart-pie"></i> Komposisi Sumber Dana</h3></div>
       <div class="card-bd">
-        <div class="chart-wrap"><canvas id="pieChart"></canvas></div>
+        <div class="chart-wrap" style="height:180px"><canvas id="pieChart"></canvas></div>
         <div id="pie-legend" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;font-size:11px"></div>
       </div>
     </div>
-  </div>
-
-  <div class="grid2">
     <div class="card">
-      <div class="card-hd"><h3><i class="fa-solid fa-clock-rotate-left"></i> 10 Transaksi Terakhir</h3></div>
-      <div class="card-bd" style="padding:0">
-        <div class="tw"><table><thead><tr><th>Tanggal</th><th>Keterangan</th><th>Kategori</th><th>Jenis</th><th style="text-align:right">Jumlah</th></tr></thead><tbody id="tbody-recent"><tr><td colspan="5" style="text-align:center;padding:20px;color:var(--gray400)">Memuat...</td></tr></tbody></table></div>
-        <div class="trx-cards" id="card-recent"></div>
+      <div class="card-hd"><h3><i class="fa-solid fa-chart-bar"></i> Alokasi Pengeluaran</h3></div>
+      <div class="card-bd" style="padding:14px 16px">
+        <div id="allok-list2"></div>
       </div>
     </div>
     <div class="card">
-      <div class="card-hd"><h3><i class="fa-solid fa-star-and-crescent"></i> Petugas Jum'at</h3></div>
+      <div class="card-hd"><h3><i class="fa-solid fa-circle-info"></i> Realisasi &amp; Info Dana</h3></div>
       <div class="card-bd">
-        <div class="jumatan-card">
+        <div class="real-prog">
+          <div class="real-prog-label"><span>Dana Terpakai</span><span id="db-pct-pakai">–</span></div>
+          <div class="real-bar-wrap"><div class="real-bar" id="db-bar-pakai" style="background:var(--g);width:0%"></div></div>
+        </div>
+        <div class="real-prog">
+          <div class="real-prog-label"><span>Saldo Tersisa</span><span id="db-pct-sisa">–</span></div>
+          <div class="real-bar-wrap"><div class="real-bar" id="db-bar-sisa" style="background:var(--gold);width:0%"></div></div>
+        </div>
+        <div class="mini4">
+          <div class="mini-c mc-g"><div class="ml">Penerimaan</div><div class="mv" id="mc-in">–</div></div>
+          <div class="mini-c mc-go"><div class="ml">Pengeluaran</div><div class="mv" id="mc-out">–</div></div>
+          <div class="mini-c mc-gray"><div class="ml">Saldo Kas</div><div class="mv" id="s-saldo-kas">Memuat...</div></div>
+          <div class="mini-c mc-b"><div class="ml">Saldo Bank</div><div class="mv" id="s-saldo-bank">Memuat...</div></div>
+        </div>
+        <div class="jumatan-card" style="margin-top:12px">
           <div class="jumatan-row"><div class="jum-k">Khatib</div><div class="jum-v" id="j-khatib">Memuat...</div></div>
           <div class="jumatan-row"><div class="jum-k">Imam</div><div class="jum-v" id="j-imam">Memuat...</div></div>
           <div class="jumatan-row"><div class="jum-k">Muadzin</div><div class="jum-v" id="j-muadzin">Memuat...</div></div>
@@ -398,6 +494,47 @@ tbody tr:hover td{background:var(--gray50)}
       </div>
     </div>
   </div>
+
+  <!-- ARUS KAS HARIAN -->
+  <div class="card" style="margin-bottom:12px">
+    <div class="card-hd"><h3><i class="fa-solid fa-chart-line"></i> Arus Kas Harian — Penerimaan vs Pengeluaran</h3></div>
+    <div class="card-bd">
+      <div class="chart-wrap" style="height:200px"><canvas id="mainChart"></canvas></div>
+      <div style="display:flex;gap:14px;margin-top:8px;font-size:11px">
+        <span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:2px;background:var(--g)"></span>Penerimaan</span>
+        <span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:2px;background:var(--red)"></span>Pengeluaran</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIWAYAT + TOP TRANSAKSI -->
+  <div class="db-row4">
+    <div class="card">
+      <div class="card-hd">
+        <h3><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Transaksi</h3>
+        <div class="db-trx-filter">
+          <button class="db-trx-btn on" id="dbt-semua" onclick="dbTrxFilter('semua',this)">Semua</button>
+          <button class="db-trx-btn" id="dbt-masuk" onclick="dbTrxFilter('masuk',this)">Masuk</button>
+          <button class="db-trx-btn" id="dbt-keluar" onclick="dbTrxFilter('keluar',this)">Keluar</button>
+        </div>
+      </div>
+      <div style="padding:0 18px 14px">
+        <div class="tw">
+          <table class="db-table">
+            <thead><tr><th>No</th><th>Tanggal</th><th>Keterangan</th><th>Jenis</th><th style="text-align:right">Jumlah (Rp)</th></tr></thead>
+            <tbody id="tbody-recent"></tbody>
+          </table>
+        </div>
+        <div class="trx-cards" id="card-recent"></div>
+        <div style="font-size:11px;color:var(--gray400);margin-top:8px" id="db-trx-count"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-hd"><h3><i class="fa-solid fa-ranking-star"></i> Transaksi Terbesar</h3></div>
+      <div class="card-bd" id="top-trx2"></div>
+    </div>
+  </div>
+
 </div>
 </div>
 
@@ -509,7 +646,7 @@ tbody tr:hover td{background:var(--gray50)}
       </div>
     </div>
     <div class="qris-area">
-      <div class="qris-box"><img src="qris.png" alt="QRIS" onerror="this.parentElement.innerHTML='<div style=\'text-align:center;color:#999;font-size:10px;padding:10px\'>QRIS<br>Segera Hadir</div>'"></div>
+      <div class="qris-box"><img src="qris.jpg" alt="QRIS" onerror="this.parentElement.innerHTML='<div style=\'text-align:center;color:#999;font-size:10px;padding:10px\'>QRIS<br>Segera Hadir</div>'"></div>
       <div class="qris-info">
         <h4>Scan QRIS</h4>
         <p>Bisa melalui semua aplikasi e-wallet dan mobile banking</p>
@@ -704,35 +841,130 @@ function setField(id,v){ const el=document.getElementById(id); if(el&&v!==undefi
 
 /* ── RENDER ALL ──────────────────────────────────────────── */
 function renderAll(){
-  renderSummary(); renderRecentTable(); renderChart(); renderPieChart();
-  renderAllokChart(); renderJumatan();
+  dbRender();
   filteredData=[...allData]; renderFullTable();
 }
 
-/* ── SUMMARY ─────────────────────────────────────────────── */
-function renderSummary(){
-  const pIn=allData.filter(d=>d.jenis==='Penerimaan');
-  const pOut=allData.filter(d=>d.jenis==='Pengeluaran');
+/* ── DASHBOARD STATE ────────────────────────────────────── */
+let dbData=[], dbTrxMode='semua';
+
+function dbPreset(type, btn){
+  document.querySelectorAll('.fpreset').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  const now=new Date(), y=now.getFullYear(), m=now.getMonth();
+  const pad=d=>String(d).padStart(2,'0');
+  const ymd=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+  if(type==='reset'||type==='semua'){
+    document.getElementById('db-dari').value='';
+    document.getElementById('db-sampai').value='';
+  } else if(type==='bulan'){
+    document.getElementById('db-dari').value=`${y}-${pad(m+1)}-01`;
+    document.getElementById('db-sampai').value=ymd(new Date(y,m+1,0));
+  } else if(type==='lalu'){
+    document.getElementById('db-dari').value=`${y}-${pad(m)}-01`;
+    document.getElementById('db-sampai').value=ymd(new Date(y,m,0));
+  }
+  dbFilter();
+}
+
+function dbFilter(){
+  const dari=document.getElementById('db-dari').value;
+  const sampai=document.getElementById('db-sampai').value;
+  const dD=dari?parseDate(dari):null, sD=sampai?parseDate(sampai):null;
+  dbData=(dD||sD)?allData.filter(d=>{
+    const t=parseDate(d.tanggal);if(!t)return false;
+    if(dD&&t<dD)return false;
+    if(sD&&t>sD)return false;
+    return true;
+  }):[...allData];
+  // update chip
+  const chip=document.getElementById('db-period-chip');
+  if(dari&&sampai) chip.textContent=`${dari.slice(8)}/${dari.slice(5,7)} – ${sampai.slice(8)}/${sampai.slice(5,7)}/${sampai.slice(0,4)}`;
+  else chip.textContent='Semua periode';
+  dbRender();
+}
+
+function dbRender(){
+  if(!dbData.length) dbData=[...allData];
+  const pIn=dbData.filter(d=>d.jenis==='Penerimaan');
+  const pOut=dbData.filter(d=>d.jenis==='Pengeluaran');
   const tIn=pIn.reduce((s,d)=>s+d.jumlah,0);
   const tOut=pOut.reduce((s,d)=>s+d.jumlah,0);
-
   const kasIn=pIn.filter(d=>(d.metode||'').toUpperCase()==='TUNAI').reduce((s,d)=>s+d.jumlah,0);
   const kasOut=pOut.filter(d=>(d.metode||'').toUpperCase()==='TUNAI').reduce((s,d)=>s+d.jumlah,0);
   const bankIn=pIn.filter(d=>(d.metode||'').toUpperCase()==='BANK').reduce((s,d)=>s+d.jumlah,0);
   const bankOut=pOut.filter(d=>(d.metode||'').toUpperCase()==='BANK').reduce((s,d)=>s+d.jumlah,0);
+  const sKas=CFG.saldo_kas+kasIn-kasOut;
+  const sBank=CFG.saldo_bank+bankIn-bankOut;
+  const sTotal=sKas+sBank;
+  const pct=tIn>0?Math.round(tOut/tIn*100):0;
 
-  const sKas  = CFG.saldo_kas  + kasIn  - kasOut;
-  const sBank = CFG.saldo_bank + bankIn - bankOut;
-  const sTotal= sKas + sBank;
+  // Kartu ringkasan
+  document.getElementById('s-total-in').textContent=fmt(tIn);
+  document.getElementById('s-total-out').textContent=fmt(tOut);
+  document.getElementById('s-saldo-total').textContent=CFG.loaded?fmt(sTotal):'Memuat...';
+  document.getElementById('s-db-count').textContent=dbData.length+' Item';
+  document.getElementById('mc-in').textContent=fmts(tIn);
+  document.getElementById('mc-out').textContent=fmts(tOut);
+  document.getElementById('s-saldo-kas').textContent=CFG.loaded?fmt(Math.max(0,sKas)):'Memuat...';
+  document.getElementById('s-saldo-bank').textContent=CFG.loaded?fmt(Math.max(0,sBank)):'Memuat...';
 
-  document.getElementById('s-total-in').textContent  = fmt(tIn);
-  document.getElementById('s-total-out').textContent = fmt(tOut);
-  document.getElementById('s-saldo-kas').textContent  = CFG.loaded ? fmt(Math.max(0,sKas))  : 'Memuat...';
-  document.getElementById('s-saldo-bank').textContent = CFG.loaded ? fmt(Math.max(0,sBank)) : 'Memuat...';
-  document.getElementById('s-saldo-total').textContent= CFG.loaded ? fmt(sTotal)             : 'Memuat...';
-  document.getElementById('sb-kas').textContent  = CFG.loaded ? fmt(Math.max(0,sKas))  : '–';
-  document.getElementById('sb-bank').textContent = CFG.loaded ? fmt(Math.max(0,sBank)) : '–';
+  // Progress realisasi
+  const sisa=100-pct;
+  document.getElementById('db-pct-pakai').textContent=pct+'%';
+  document.getElementById('db-pct-sisa').textContent=sisa+'%';
+  document.getElementById('db-bar-pakai').style.width=pct+'%';
+  document.getElementById('db-bar-sisa').style.width=sisa+'%';
+
+  // Charts
+  renderPieChart(pIn);
+  renderAllokChart(pOut);
+  renderChart(dbData);
+
+  // Riwayat
+  dbRenderTrx();
+
+  // Top transaksi
+  const sorted=[...dbData].sort((a,b)=>b.jumlah-a.jumlah).slice(0,7);
+  document.getElementById('top-trx2').innerHTML=sorted.map(d=>{
+    const isIn=d.jenis==='Penerimaan';
+    return `<div class="top-item2">
+      <span class="top-dot2" style="background:${isIn?'var(--g)':'var(--red)'}"></span>
+      <span class="top-name2" title="${d.keterangan}">${d.keterangan}</span>
+      <span class="top-val2 ${isIn?'am-in':'am-out'}">${isIn?'+':'-'}${fmts(d.jumlah)}</span>
+    </div>`;
+  }).join('');
+
   updateHeroPeriod();
+}
+
+function dbTrxFilter(mode, btn){
+  dbTrxMode=mode;
+  document.querySelectorAll('.db-trx-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  dbRenderTrx();
+}
+
+function dbRenderTrx(){
+  const src=dbTrxMode==='masuk'?dbData.filter(d=>d.jenis==='Penerimaan'):
+            dbTrxMode==='keluar'?dbData.filter(d=>d.jenis==='Pengeluaran'):dbData;
+  const recent=[...src].reverse().slice(0,20);
+  document.getElementById('tbody-recent').innerHTML=recent.map((d,i)=>{
+    const isIn=d.jenis==='Penerimaan';
+    return `<tr><td style="color:var(--gray400)">${i+1}</td>
+    <td style="color:var(--gray600);white-space:nowrap">${d.tanggal}</td>
+    <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${d.keterangan}</td>
+    <td><span class="bdg ${isIn?'bdg-g':'bdg-r'}">${isIn?'▲ Masuk':'▼ Keluar'}</span></td>
+    <td class="${isIn?'am-in':'am-out'}">${fmt(d.jumlah)}</td></tr>`;
+  }).join('')||'<tr><td colspan="5" style="text-align:center;padding:16px;color:var(--gray400)">Tidak ada data</td></tr>';
+  document.getElementById('card-recent').innerHTML=recent.map(cardHTML).join('');
+  document.getElementById('db-trx-count').textContent=src.length+' transaksi';
+}
+
+/* ── SUMMARY (dipanggil dari fetchConfig) ────────────────── */
+function renderSummary(){
+  if(dbData.length) dbRender();
+  else { dbData=[...allData]; dbRender(); }
 }
 
 /* ── HERO PERIOD ─────────────────────────────────────────── */
@@ -757,17 +989,7 @@ function cardHTML(d){
     <div class="trx-amt ${isIn?'am-in':'am-out'}">${isIn?'+':'–'} ${fmt(d.jumlah)}</div>
   </div>`;
 }
-function renderRecentTable(){
-  const recent=[...allData].slice(-10).reverse();
-  document.getElementById('tbody-recent').innerHTML = recent.map(d=>{
-    const isIn=d.jenis==='Penerimaan';
-    return `<tr><td>${d.tanggal}</td><td style="max-width:200px">${d.keterangan}</td>
-    <td><span class="bdg bdg-gray">${d.deskripsi||'–'}</span></td>
-    <td><span class="bdg ${isIn?'bdg-g':'bdg-r'}">${isIn?'▲':'▼'} ${d.jenis}</span></td>
-    <td style="text-align:right" class="${isIn?'am-in':'am-out'}">${fmt(d.jumlah)}</td></tr>`;
-  }).join('') || '<tr><td colspan="5" style="text-align:center;padding:16px;color:var(--gray400)">Tidak ada data</td></tr>';
-  document.getElementById('card-recent').innerHTML=recent.map(cardHTML).join('');
-}
+/* renderRecentTable() digabung ke dbRenderTrx() */
 function applyFilter(){
   const jenis=document.getElementById('f-jenis').value;
   const dari=document.getElementById('f-dari').value;
@@ -818,32 +1040,42 @@ function mkChart(id,type,data,opts={}){
   if(charts[id]) charts[id].destroy();
   charts[id]=new Chart(ctx,{type,data,options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},...opts}});
 }
-function renderChart(){
+function renderChart(data){
+  data=data||allData;
   const daily={};
-  allData.forEach(d=>{
+  data.forEach(d=>{
     if(!daily[d.tanggal]) daily[d.tanggal]={in:0,out:0};
     if(d.jenis==='Penerimaan') daily[d.tanggal].in+=d.jumlah;
     else daily[d.tanggal].out+=d.jumlah;
   });
-  const labs=Object.keys(daily).sort((a,b)=>parseDate(a)-parseDate(b)).slice(-10);
+  const labs=Object.keys(daily).sort((a,b)=>parseDate(a)-parseDate(b));
   mkChart('mainChart','bar',{labels:labs,datasets:[
-    {label:'Penerimaan',data:labs.map(l=>daily[l]?.in||0),backgroundColor:'#1B6B3A',borderRadius:4},
-    {label:'Pengeluaran',data:labs.map(l=>daily[l]?.out||0),backgroundColor:'#C0392B',borderRadius:4}
-  ]},{scales:{y:{ticks:{callback:v=>fmts(v),font:{size:11}},grid:{color:'#F0EFE9'}},x:{ticks:{font:{size:10}},grid:{display:false}}}});
+    {label:'Penerimaan',data:labs.map(l=>daily[l]?.in||0),backgroundColor:'#1B6B3A',borderRadius:3},
+    {label:'Pengeluaran',data:labs.map(l=>daily[l]?.out||0),backgroundColor:'#C0392B',borderRadius:3}
+  ]},{scales:{y:{ticks:{callback:v=>fmts(v),font:{size:10}},grid:{color:'#F0EFE9'}},x:{ticks:{font:{size:10},maxRotation:45},grid:{display:false}}}});
 }
-function renderPieChart(){
+function renderPieChart(pIn){
+  pIn=pIn||allData.filter(d=>d.jenis==='Penerimaan');
   const g={};
-  allData.filter(d=>d.jenis==='Penerimaan').forEach(d=>{const k=d.deskripsi||'Lainnya';g[k]=(g[k]||0)+d.jumlah;});
-  const labs=Object.keys(g), vals=Object.values(g);
-  mkChart('pieChart','doughnut',{labels:labs,datasets:[{data:vals,backgroundColor:COLORS.slice(0,labs.length),borderWidth:2,borderColor:'#fff'}]},{cutout:'60%'});
-  document.getElementById('pie-legend').innerHTML=labs.map((l,i)=>`<span style="display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;border-radius:2px;background:${COLORS[i]};flex-shrink:0"></span>${l}: ${fmts(vals[i])}</span>`).join('');
+  pIn.forEach(d=>{const k=d.deskripsi||'Lainnya';g[k]=(g[k]||0)+d.jumlah;});
+  const labs=Object.keys(g),vals=Object.values(g),total=vals.reduce((a,b)=>a+b,0);
+  mkChart('pieChart','doughnut',{labels:labs,datasets:[{data:vals,backgroundColor:COLORS.slice(0,labs.length),borderWidth:2,borderColor:'#fff'}]},{cutout:'62%'});
+  document.getElementById('pie-legend').innerHTML=labs.map((l,i)=>`<span style="display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;border-radius:2px;background:${COLORS[i]};flex-shrink:0"></span>${l} ${total>0?Math.round(vals[i]/total*100)+'%':''}</span>`).join('');
 }
-function renderAllokChart(){
+function renderAllokChart(pOut){
+  pOut=pOut||allData.filter(d=>d.jenis==='Pengeluaran');
   const g={};
-  allData.filter(d=>d.jenis==='Pengeluaran').forEach(d=>{const k=d.deskripsi||'Lainnya';g[k]=(g[k]||0)+d.jumlah;});
-  const labs=Object.keys(g), vals=Object.values(g);
-  mkChart('allokChart','pie',{labels:labs,datasets:[{data:vals,backgroundColor:COLORS.slice(0,labs.length),borderWidth:2,borderColor:'#fff'}]});
-  document.getElementById('allok-legend').innerHTML=labs.map((l,i)=>`<span style="display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;border-radius:2px;background:${COLORS[i]};flex-shrink:0"></span>${l}: ${fmts(vals[i])}</span>`).join('');
+  pOut.forEach(d=>{const k=d.deskripsi||'Lainnya';g[k]=(g[k]||0)+d.jumlah;});
+  const entries=Object.entries(g).sort((a,b)=>b[1]-a[1]);
+  const mx=entries[0]?.[1]||1;
+  const el=document.getElementById('allok-list2');
+  if(el) el.innerHTML=entries.map(([k,v],i)=>`
+    <div class="allok-row2">
+      <span class="allok-dot" style="background:${COLORS[i%COLORS.length]}"></span>
+      <span class="allok-name2">${k}</span>
+      <div class="allok-bwrap"><div class="allok-bfill" style="width:${Math.round(v/mx*100)}%;background:${COLORS[i%COLORS.length]}"></div></div>
+      <span class="allok-val2">${fmts(v)}</span>
+    </div>`).join('')||'<div style="color:var(--gray400);font-size:12px;padding:8px 0">Tidak ada pengeluaran</div>';
 }
 
 /* ── JUMATAN ─────────────────────────────────────────────── */
@@ -990,7 +1222,7 @@ function buildRekapPreview(){
   empty.style.display='none'; dok.style.display='block';
   dok.innerHTML=`
   <div class="lap-kop">
-    <div class="lap-kop-logo"><img src="logodkm.png" alt="Logo" onerror="this.style.display='none'"></div>
+    <div class="lap-kop-logo"><img src="logodkm.jpg" alt="Logo" onerror="this.style.display='none'"></div>
     <div class="lap-kop-text">
       <h1>Laporan Keuangan Masjid Jabal Rahmah</h1>
       <p>Jln. Aroepala, Kompleks Permata Hijau Lestari, Kassi-Kassi, Rappocini, Makassar</p>
