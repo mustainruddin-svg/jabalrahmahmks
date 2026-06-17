@@ -837,8 +837,13 @@ async function fetchConfig() {
 
     const P = v => {
       if(v===null||v===undefined||v==='') return null;
-      const n = parseFloat(String(v).replace(/[^0-9.]/g,''));
-      return (!isNaN(n) && n>=0 && n<1e10) ? n : null;
+      // gviz mengembalikan angka langsung sebagai number — pakai itu dulu
+      if(typeof v === 'number') return (!isNaN(v) && v>=0) ? v : null;
+      // Fallback string: hapus titik ribuan (id-ID format), bukan titik desimal
+      const s = String(v).trim();
+      // Format Indonesia: 93.437.397 → hapus semua titik lalu parse
+      const n = parseFloat(s.replace(/\./g,'').replace(',','.'));
+      return (!isNaN(n) && n>=0 && n<1e12) ? n : null;
     };
 
     CFG.saldo_awal = P(d.saldo_awal) ?? 0;
